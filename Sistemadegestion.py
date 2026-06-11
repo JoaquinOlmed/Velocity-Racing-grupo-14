@@ -1,6 +1,14 @@
 from Funciones import *
 
 def main():
+
+    lst_nombres=[]
+    lst_numero=[]
+    lst_escuderia=[]
+    lst_puntos=[]
+    lst_vueltaProm=[]
+    lst_presupuesto=[]
+    lst_dnf=[]
     
     opcionesMenu()
     opciones = ingresar_opcionesMenu(1, 8)
@@ -8,6 +16,7 @@ def main():
     while opciones != 8:
         if opciones == 1:
             print("Registro de piloto")
+            altadePilotos(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vueltaProm ,lst_presupuesto, lst_dnf)
 
         elif opciones == 2:
             print("Eliminar piloto")
