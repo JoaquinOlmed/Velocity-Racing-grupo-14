@@ -1,7 +1,7 @@
 from Funciones import *
 
 def main():
-
+#Función hecha en conjunto
     lst_nombres=["Max Verstappen", "Charles Leclerc", "Lando Norris", "Franco Colapinto" ]
     lst_numero=[3, 16, 1, 43]
     lst_escuderia=["RedBull", "Ferrari", "McLaren", "Alpine"]
