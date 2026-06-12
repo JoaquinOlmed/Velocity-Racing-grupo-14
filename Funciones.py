@@ -1,10 +1,10 @@
-def opcionesMenu():
+def opcionesMenu(): 
     print("1: Registro de piloto ")
     print("2: Eliminar piloto")
     print("3: Modificar puntos o tiempo promedio")
     print("4: Informe general")
     print("5: Salir")
-
+#Principalmente realizada por Joaquin Olmedo
 
 def ingresar_opcionesMenu(desde, hasta):
     #Función realizada por Joaquin Olmedo
