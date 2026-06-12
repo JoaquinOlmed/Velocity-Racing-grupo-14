@@ -18,4 +18,4 @@
 
 #Integrantes: Joaquin Olmedo, Juan Manuel Silva Fernández
 
-URL del github: https://github.com/JoaquinOlmed/Velocity-Racing-grupo-14
+#URL del github: https://github.com/JoaquinOlmed/Velocity-Racing-grupo-14
