@@ -1,4 +1,8 @@
-def opcionesMenu(): 
+def opcionesMenu():
+    """Muestra el menú principal de opciones del sistema.
+
+    Realizado por: Joaquin Olmedo
+    """
     print("1: Registro de piloto ")
     print("2: Eliminar piloto")
     print("3: Modificar puntos o tiempo promedio")
@@ -7,50 +11,118 @@ def opcionesMenu():
 #Principalmente realizada por Joaquin Olmedo
 
 def ingresar_opcionesMenu(desde, hasta):
-    #Función realizada por Joaquin Olmedo
-    #Función para verificar que la opción ingresada en el menu sea correcta
+    """Solicita y valida una opción de menú entre dos valores.
 
-    op = int(input("Seleccione una opcion: "))
-    while op<desde or op>hasta:
-        print("La opcion seleccionada no es valida")
-        op = int(input("Seleccione una opcion:"))
+    Args:
+        desde (int): opción mínima permitida.
+        hasta (int): opción máxima permitida.
+
+    Returns:
+        int: opción válida ingresada por el usuario.
+
+    Realizado por: Joaquin Olmedo
+    """
+    op = input("Seleccione una opcion: ")
+    if op.isdigit():
+        n = int(op)
+        if desde <= n <= hasta:
+            return n
+    print("La opcion seleccionada no es valida")
     return op
 
 def ingresarPositivo(msg):
-    #Función realizada por Joaquin Olmedo
-    #Función para verificar que el valor sea positivo
+    """Solicita un número positivo por consola.
+
+    Args:
+        msg (str): mensaje mostrado al usuario.
+
+    Returns:
+        int: valor positivo ingresado.
+
+    Realizado por: Joaquin Olmedo
+    """
     num=int(input(msg))
     while num<=0:
         print("Error debe ser positivo")
         num=int(input(msg))
     return num
 
+
+def buscar_piloto_por_numero(lst_numero, numero):
+    """Busca la posición de un piloto por número de monoplaza.
+
+    Args:
+        lst_numero (list): lista de números de monoplazas.
+        numero (int): número de monoplaza a buscar.
+
+    Returns:
+        int: índice del piloto o -1 si no existe.
+
+    Realizado por: Función auxiliar
+    """
+    posicion = -1
+    i = 0
+    while i < len(lst_numero) and posicion == -1:
+        if lst_numero[i] == numero:
+            posicion = i
+        i = i + 1
+    return posicion
+
+
+def buscar_piloto_por_nombre(lst_nombres, nombre):
+    """Busca la posición de un piloto por nombre.
+
+    Args:
+        lst_nombres (list): lista de nombres de pilotos.
+        nombre (str): nombre a buscar.
+
+    Returns:
+        int: índice del piloto o -1 si no existe.
+
+    Realizado por: Función auxiliar
+    """
+    posicion = -1
+    i = 0
+    while i < len(lst_nombres) and posicion == -1:
+        if lst_nombres[i].upper() == nombre.upper():
+            posicion = i
+        i = i + 1
+    return posicion
+
+
 def altadePilotos(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vueltaProm ,lst_presupuesto, lst_dnf):
-    #da de alta alos pilotos hasta ingresar -1
-    #Función realizada por Joaquin Olmedo
+    """Registra un nuevo piloto y agrega sus datos a las listas correspondientes.
+
+    Realizado por: Joaquin Olmedo
+    """
 
     
     nombre=input("Ingrese el nombre del piloto o -1 para finalizar: ")
         
+        # Validar duplicados después de ingresar nombre y monoplaza
+    while buscar_piloto_por_nombre(lst_nombres, nombre) != -1:
+        print("Error: Ya existe un piloto con ese nombre.")
+        nombre=input("Ingrese el nombre del piloto o -1 para finalizar: ")
+        
         #Se solicita el numero del monoplaza
-    monoplaza= int(input("Ingrese el numero del monoplaza:"))
+    monoplaza= int(input("Ingrese el numero del monoplaza:"))    
 
         #Se solicita la escuderia
     escuderia = input("Ingrese la escuderia del piloto: ")
 
         #Se solicita la cantidad de puntos que tiene el piloto
-    puntos = ingresarPositivo("Ingrese cantidad de puntos:")
+    puntos = ingresarPositivo("Ingrese cantidad de puntos: ")
 
         #Se solicita el tiepo de vuelta promedio
-    vuelta = ingresarPositivo("Ingrese la vuelta promedio:")
+    vuelta = float(input("Ingrese la vuelta promedio: "))
 
         #Se solicita el presupuesto
-    presupuesto = ingresarPositivo("Ingrese el presupuesto:")
+    presupuesto = ingresarPositivo("Ingrese el presupuesto: ")
 
         #Se solicita el numero abandonos
-    dnf = ingresarPositivo("Ingrese cantidad de abandonos:")
+    dnf = ingresarPositivo("Ingrese cantidad de abandonos: ")
 
-     #guardar en las listas
+    #guardar en las listas
     lst_nombres.append(nombre)
     lst_numero.append(monoplaza)
     lst_escuderia.append(escuderia)
@@ -62,8 +134,10 @@ def altadePilotos(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vuelta
     nombre = input("Ingrese el nombre del piloto: ")
 
 def bajaDePilotos(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vueltaProm ,lst_presupuesto, lst_dnf):
-    #Da de baja un piloto, posteriormente vuelve al menu, 
-    #Función realizada por Juan Manuel
+    """Elimina un piloto si cumple las condiciones necesarias.
+
+    Realizado por: Juan Manuel
+    """
 
         #Se solicita el número de monoplaza
     monoplaza = int(input("Ingrese el número de monoplaza"))
@@ -73,10 +147,7 @@ def bajaDePilotos(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vuelta
 
     #Se busca al piloto dentro de la lista de números
 
-    while i < len(lst_numero):
-        if lst_numero[i] == monoplaza:
-            posicion = i
-        i = i + 1
+    posicion = buscar_piloto_por_numero(lst_numero, monoplaza)
 
     #En caso de no existir se notifica, y se revisa que este mismo tenga 0 puntos para poder ser eliminado  
     if posicion == -1:
@@ -104,8 +175,11 @@ def bajaDePilotos(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vuelta
 
 
 
-def modificarPiloto(lst_nombres, lst_numero, lst_escuderia, lst_puntos, lst_vueltaProm, lst_presupuesto, lst_dnf):
-    #Función hecha por Juan Manuel, permite modificar los puntos de un piloto, o su tiempo promedio, accediendo por nombre o número de monoplaza
+def modificarPiloto(lst_nombres, lst_numero, lst_puntos, lst_vueltaProm):
+    """Modifica puntos o tiempo promedio de un piloto identificado por nombre o número.
+
+    Realizado por: Juan Manuel
+    """
     print("1: Buscar por nombre")
     print("2: Buscar por número de monoplaza")
 
@@ -115,19 +189,10 @@ def modificarPiloto(lst_nombres, lst_numero, lst_escuderia, lst_puntos, lst_vuel
 
     if opcion == 1:
         nombre = input("Ingrese el nombre del piloto: ")
-        i = 0
-        while i < len(lst_nombres) and posicion == -1:
-            if lst_nombres[i].upper() == nombre.upper():
-                posicion = i
-            i = i + 1
+        posicion = buscar_piloto_por_nombre(lst_nombres, nombre)
     elif opcion == 2:
         numero = int(input("Ingrese el número de monoplaza: "))
-        i = 0
-        while i < len(lst_numero) and posicion == -1:
-            if lst_numero[i] == numero:
-                posicion = i
-
-            i = i + 1
+        posicion = buscar_piloto_por_numero(lst_numero, numero)
 
     if posicion == -1:
         print("Piloto no encontrado")
@@ -168,8 +233,11 @@ def modificarPiloto(lst_nombres, lst_numero, lst_escuderia, lst_puntos, lst_vuel
 
 
 
-def generarInforme(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vueltaProm ,lst_presupuesto, lst_dnf): 
-        #Función que se encarga de realizar el informe usando las listas encontradas en el main, realizada por Juan Manuel
+def generarInforme(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vueltaProm ,lst_presupuesto, lst_dnf):
+    """Genera e imprime un informe tabular con los datos de los pilotos.
+
+    Realizado por: Juan Manuel
+    """
 
     #Para poder listarlas correctamente tengo que ordenarlas
     for i in range(len(lst_nombres)-1):
@@ -238,20 +306,12 @@ def generarInforme(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vuelt
                     lst_dnf[j] = aux
     
     print("---------INFORME PRINCIPAL---------")
+    header = f"{'Piloto':<25} {'Monoplaza':<10} {'Escuderia':<12} {'Puntos':<8} {'Tiempo':<10} {'Presupuesto':<14} {'DNF':<4}"
+    print(header)
+    print("-" * len(header))
     for i in range(len(lst_nombres)):
-        print("Nombre del piloto", lst_nombres[i])
-        
-        print("Número de monoplaza del piloto", lst_numero[i])
-        
-        print("Escuderia del piloto", lst_escuderia[i])
-        
-        print("Puntos del piloto", lst_puntos[i])
-        
-        print("Tiempo promedio del piloto", lst_vueltaProm[i])
-
-        print("Presupuesto del piloto", lst_presupuesto[i])   
-            
-        print("Cantidad de abandonos del piloto", lst_dnf[i])
+        fila = f"{lst_nombres[i]:<25} {lst_numero[i]:<10} {lst_escuderia[i]:<12} {lst_puntos[i]:<8} {lst_vueltaProm[i]:<10.2f} {lst_presupuesto[i]:<14.2f} {lst_dnf[i]:<4}"
+        print(fila)
     print("-----------------------------------")
 
     

@@ -21,11 +21,11 @@ def main():
         elif opciones == 2:
             print("Eliminar piloto")
             bajaDePilotos(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vueltaProm ,lst_presupuesto, lst_dnf)
-       
+    
         elif opciones == 3:
             print("Modificar tiempo promedio o puntos")
-            modificarPiloto(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vueltaProm ,lst_presupuesto, lst_dnf)
-         
+            modificarPiloto(lst_nombres ,lst_numero, lst_puntos)
+        
         elif opciones == 4:
             print("Informe general")
             generarInforme(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vueltaProm ,lst_presupuesto, lst_dnf)
