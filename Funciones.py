@@ -12,14 +12,6 @@ def opcionesMenu():
 
 def ingresar_opcionesMenu(desde, hasta):
     """Solicita y valida una opción de menú entre dos valores.
-
-    Args:
-        desde (int): opción mínima permitida.
-        hasta (int): opción máxima permitida.
-
-    Returns:
-        int: opción válida ingresada por el usuario.
-
     Realizado por: Joaquin Olmedo
     """
     op = input("Seleccione una opcion: ")
@@ -32,15 +24,7 @@ def ingresar_opcionesMenu(desde, hasta):
 
 def ingresarPositivo(msg):
     """Solicita un número positivo por consola.
-
-    Args:
-        msg (str): mensaje mostrado al usuario.
-
-    Returns:
-        int: valor positivo ingresado.
-
-    Realizado por: Joaquin Olmedo
-    """
+    Realizado por: Joaquin Olmedo"""
     num=int(input(msg))
     while num<=0:
         print("Error debe ser positivo")
@@ -50,16 +34,7 @@ def ingresarPositivo(msg):
 
 def buscar_piloto_por_numero(lst_numero, numero):
     """Busca la posición de un piloto por número de monoplaza.
-
-    Args:
-        lst_numero (list): lista de números de monoplazas.
-        numero (int): número de monoplaza a buscar.
-
-    Returns:
-        int: índice del piloto o -1 si no existe.
-
-    Realizado por: Función auxiliar
-    """
+    Realizado por: Juan Manuel"""
     posicion = -1
     i = 0
     while i < len(lst_numero) and posicion == -1:
@@ -71,16 +46,7 @@ def buscar_piloto_por_numero(lst_numero, numero):
 
 def buscar_piloto_por_nombre(lst_nombres, nombre):
     """Busca la posición de un piloto por nombre.
-
-    Args:
-        lst_nombres (list): lista de nombres de pilotos.
-        nombre (str): nombre a buscar.
-
-    Returns:
-        int: índice del piloto o -1 si no existe.
-
-    Realizado por: Función auxiliar
-    """
+    Realizado por: Juan Manuel"""
     posicion = -1
     i = 0
     while i < len(lst_nombres) and posicion == -1:
@@ -92,9 +58,7 @@ def buscar_piloto_por_nombre(lst_nombres, nombre):
 
 def altadePilotos(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vueltaProm ,lst_presupuesto, lst_dnf):
     """Registra un nuevo piloto y agrega sus datos a las listas correspondientes.
-
-    Realizado por: Joaquin Olmedo
-    """
+    Realizado por: Joaquin Olmedo"""
 
     
     nombre=input("Ingrese el nombre del piloto o -1 para finalizar: ")
@@ -135,9 +99,7 @@ def altadePilotos(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vuelta
 
 def bajaDePilotos(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vueltaProm ,lst_presupuesto, lst_dnf):
     """Elimina un piloto si cumple las condiciones necesarias.
-
-    Realizado por: Juan Manuel
-    """
+    Realizado por: Juan Manuel"""
 
         #Se solicita el número de monoplaza
     monoplaza = int(input("Ingrese el número de monoplaza"))
@@ -177,9 +139,7 @@ def bajaDePilotos(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vuelta
 
 def modificarPiloto(lst_nombres, lst_numero, lst_puntos, lst_vueltaProm):
     """Modifica puntos o tiempo promedio de un piloto identificado por nombre o número.
-
-    Realizado por: Juan Manuel
-    """
+    Realizado por: Juan Manuel"""
     print("1: Buscar por nombre")
     print("2: Buscar por número de monoplaza")
 
@@ -235,9 +195,7 @@ def modificarPiloto(lst_nombres, lst_numero, lst_puntos, lst_vueltaProm):
 
 def generarInforme(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vueltaProm ,lst_presupuesto, lst_dnf):
     """Genera e imprime un informe tabular con los datos de los pilotos.
-
-    Realizado por: Juan Manuel
-    """
+    Realizado por: Juan Manuel"""
 
     #Para poder listarlas correctamente tengo que ordenarlas
     for i in range(len(lst_nombres)-1):
