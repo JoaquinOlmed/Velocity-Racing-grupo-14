@@ -4,7 +4,7 @@ def main():
 #Función hecha en conjunto
     lst_nombres=["Max Verstappen", "Charles Leclerc", "Lando Norris", "Franco Colapinto" ]
     lst_numero=[3, 16, 1, 43]
-    lst_escuderia=["RedBull", "Ferrari", "McLaren", "Alpine"]
+    lst_escuderia=["Redbull", "Ferrari", "Mclaren", "Alpine"]
     lst_puntos=[125, 80, 62, 110]
     lst_vueltaProm=[78.45, 82.62, 88.23, 79.35]
     lst_presupuesto=[2000000.20, 1800000, 1700000.98, 1530000.88 ]
@@ -24,7 +24,7 @@ def main():
     
         elif opciones == 3:
             print("Modificar tiempo promedio o puntos")
-            modificarPiloto(lst_nombres ,lst_numero, lst_puntos)
+            modificarPiloto(lst_nombres ,lst_numero, lst_puntos, lst_vueltaProm)
         
         elif opciones == 4:
             print("Informe general")
