@@ -1,7 +1,8 @@
+import math
+
 def opcionesMenu():
     """Muestra el menú principal de opciones del sistema.
-
-    Realizado por: Joaquin Olmedo
+    Realizado por Joaquin Olmedo
     """
     print("1: Registro de piloto ")
     print("2: Eliminar piloto")
@@ -11,8 +12,9 @@ def opcionesMenu():
 #Principalmente realizada por Joaquin Olmedo
 
 def ingresar_opcionesMenu(desde, hasta):
-    """Solicita y valida una opción de menú entre dos valores.
-    Realizado por: Joaquin Olmedo
+    """
+    Solicita y valida una opción de menú entre dos valores.
+    Realizado por Joaquin Olmedo
     """
     op = input("Seleccione una opcion: ")
     if op.isdigit():
@@ -23,18 +25,62 @@ def ingresar_opcionesMenu(desde, hasta):
     return op
 
 def ingresarPositivo(msg):
-    """Solicita un número positivo por consola.
-    Realizado por: Joaquin Olmedo"""
+    """
+    Solicita un número positivo por consola.
+    Realizado por Joaquin Olmedo
+    """
     num=int(input(msg))
     while num<=0:
         print("Error debe ser positivo")
         num=int(input(msg))
     return num
 
+def verificarNumero(valor):
+    """
+    Pide un valor, Verifica que el valor ingresado sea un número entero y no sea negativo
+    Realizado por Juan Silva
+    """
+    num=(input(valor))
+    while num.isdigit() == False:
+        print("Debe ingresar un valor númerico positivo")
+        num=(input(valor))
+    return int(num)
+
+def verificarTexto(valor):
+    """
+    Revisa que el valor dado no tenga números, y también permite dejar espacios
+    Realizado por Juan Silva
+    """
+    texto = input(valor)
+
+    #Saca los espacios con replace y verifica que únicamente sean letras con isalpha.
+    while texto.replace(" ", "").isalpha() == False and texto != "-1":
+        print("Ingrese únicamente letras")
+        texto = input(valor)
+        
+    return texto
+
+def verificarFlotante(valor):
+    """
+    Revisa que el valor dado sea un float y positivo
+    Realizado por Juan Silva
+    """
+    decimal = input(valor)
+
+    #Saca los puntos para poder verificar con isdigit, si tiene mas de un punto tampoco cuenta ya que caerece de sentido.
+    while decimal.replace(".", "", 1).isdigit() == False:
+        print("Ingrese un número decimal positivo. Con .")
+        decimal = input(valor)
+
+    return float(decimal)
+
+    
 
 def buscar_piloto_por_numero(lst_numero, numero):
-    """Busca la posición de un piloto por número de monoplaza.
-    Realizado por: Juan Manuel"""
+    """
+    Busca la posición de un piloto por número de monoplaza.
+    Realizado por Juan Silva
+    """
     posicion = -1
     i = 0
     while i < len(lst_numero) and posicion == -1:
@@ -45,8 +91,11 @@ def buscar_piloto_por_numero(lst_numero, numero):
 
 
 def buscar_piloto_por_nombre(lst_nombres, nombre):
-    """Busca la posición de un piloto por nombre.
-    Realizado por: Juan Manuel"""
+    """
+    Busca la posición de un piloto por nombre.
+    Realizado por Juan Silva
+    """
+
     posicion = -1
     i = 0
     while i < len(lst_nombres) and posicion == -1:
@@ -55,36 +104,72 @@ def buscar_piloto_por_nombre(lst_nombres, nombre):
         i = i + 1
     return posicion
 
+def pedirValidarMonoplaza(lst_numero):
+    """
+    Pide el número de monoplaza y revisa que no se repita
+    Realizado por Juan Silva
+    """
+
+    monoplaza = verificarNumero("Ingrese el número de monoplaza: ")
+    
+    while lst_numero.count(monoplaza) > 0:
+        print("El número de monoplaza ya se encuentra ocupado. Ingrese otro")
+        monoplaza = verificarNumero("Ingrese el número de monoplaza")
+        
+    return monoplaza
+
+
+def pedirValidarEscuderia(lst_escuderia):
+    """
+    Pide el número de escuderia y revisa que no haya más de 2, que es el máximo en la F1.
+    Realizado por Juan Silva
+    """
+
+    escuderia = verificarTexto("Ingrese la escuderia del piloto: ")
+    escuderia = escuderia.replace(" ", "").capitalize()
+
+    while lst_escuderia.count(escuderia) >= 2:
+        print("La escuderia ya tiene el máximo de 2 pilotos. Ingrese otra escuderia o elimine a un piloto")
+        escuderia = verificarTexto("Ingrese una escuderia distinta: ")
+        escuderia = escuderia.replace(" ", "").capitalize()
+
+    return escuderia
 
 def altadePilotos(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vueltaProm ,lst_presupuesto, lst_dnf):
-    """Registra un nuevo piloto y agrega sus datos a las listas correspondientes.
-    Realizado por: Joaquin Olmedo"""
+    """
+    Registra un nuevo piloto y agrega sus datos a las listas correspondientes.
+    Realizado por: Joaquin Olmedo
+    """
 
     
-    nombre=input("Ingrese el nombre del piloto o -1 para finalizar: ")
-        
-        # Validar duplicados después de ingresar nombre y monoplaza
+    nombre=verificarTexto("Ingrese el nombre del piloto o -1 para finalizar: ").title()
+
+    if str(nombre) == "-1":
+        print("Vuelve al menú principal")
+        return
+
+        #Validar duplicados después de ingresar nombre y monoplaza
     while buscar_piloto_por_nombre(lst_nombres, nombre) != -1:
         print("Error: Ya existe un piloto con ese nombre.")
-        nombre=input("Ingrese el nombre del piloto o -1 para finalizar: ")
+        nombre=verificarTexto("Ingrese el nombre del piloto o -1 para finalizar: ").title()
         
-        #Se solicita el numero del monoplaza
-    monoplaza= int(input("Ingrese el numero del monoplaza:"))    
-
-        #Se solicita la escuderia
-    escuderia = input("Ingrese la escuderia del piloto: ")
-
+        #Se llama a la función que solicita el numero del monoplaza y válida el dato
+    monoplaza= pedirValidarMonoplaza(lst_numero)
+  
+        #Se llama a la función que solicita la escuderia y válida el dato
+    escuderia = pedirValidarEscuderia(lst_escuderia)
+    
         #Se solicita la cantidad de puntos que tiene el piloto
-    puntos = ingresarPositivo("Ingrese cantidad de puntos: ")
+    puntos = verificarNumero(("Ingrese cantidad de puntos: "))
 
-        #Se solicita el tiepo de vuelta promedio
-    vuelta = float(input("Ingrese la vuelta promedio: "))
+        #Se solicita el tiempo de vuelta promedio
+    vuelta = verificarFlotante("Ingrese la vuelta promedio: ")
 
         #Se solicita el presupuesto
-    presupuesto = ingresarPositivo("Ingrese el presupuesto: ")
+    presupuesto = verificarFlotante("Ingrese el presupuesto: ")
 
         #Se solicita el numero abandonos
-    dnf = ingresarPositivo("Ingrese cantidad de abandonos: ")
+    dnf = verificarNumero("Ingrese cantidad de abandonos: ")
 
     #guardar en las listas
     lst_nombres.append(nombre)
@@ -95,14 +180,16 @@ def altadePilotos(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vuelta
     lst_presupuesto.append(presupuesto)
     lst_dnf.append(dnf)
     
-    nombre = input("Ingrese el nombre del piloto: ")
+    
 
 def bajaDePilotos(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vueltaProm ,lst_presupuesto, lst_dnf):
-    """Elimina un piloto si cumple las condiciones necesarias.
-    Realizado por: Juan Manuel"""
+    """
+    Elimina un piloto si cumple las condiciones necesarias.
+    Realizado por: Juan Silva
+    """
 
         #Se solicita el número de monoplaza
-    monoplaza = int(input("Ingrese el número de monoplaza"))
+    monoplaza = verificarNumero("Ingrese el número de monoplaza")
 
     posicion = -1
     i= 0
@@ -120,7 +207,7 @@ def bajaDePilotos(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vuelta
         else:
             print("El piloto a eliminar es:", lst_nombres[posicion])
 
-            confirmacion = int(input("Desea confirmar la eliminación del piloto?, 1 si, 2 para cancelar"))
+            confirmacion = verificarNumero("Desea confirmar la eliminación del piloto?, 1 si, 2 para cancelar")
             #n caso de poder ser eliminado, se borran los datos de ese piloto de todas las listas.  
             if confirmacion == 1:
                 lst_nombres.pop(posicion)
@@ -139,19 +226,21 @@ def bajaDePilotos(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vuelta
 
 def modificarPiloto(lst_nombres, lst_numero, lst_puntos, lst_vueltaProm):
     """Modifica puntos o tiempo promedio de un piloto identificado por nombre o número.
-    Realizado por: Juan Manuel"""
+    
+    Realizado por: Juan Silva
+    """
     print("1: Buscar por nombre")
     print("2: Buscar por número de monoplaza")
 
-    opcion = int(input("Elija una opción: "))
+    opcion = verificarNumero("Elija una opción: ")
 
     posicion = -1
 
     if opcion == 1:
-        nombre = input("Ingrese el nombre del piloto: ")
+        nombre = verificarTexto("Ingrese el nombre del piloto: ")
         posicion = buscar_piloto_por_nombre(lst_nombres, nombre)
     elif opcion == 2:
-        numero = int(input("Ingrese el número de monoplaza: "))
+        numero = verificarNumero("Ingrese el número de monoplaza: ")
         posicion = buscar_piloto_por_numero(lst_numero, numero)
 
     if posicion == -1:
@@ -163,24 +252,25 @@ def modificarPiloto(lst_nombres, lst_numero, lst_puntos, lst_vueltaProm):
         print("2. Cambiar tiempo promedio ")
         print("3. Cambiar ambos")
 
-        opcionModificacion = int(input("Elija una opción:"))
+        opcionModificacion = verificarNumero("Elija una opción:")
 
         if opcionModificacion == 1:
 
-            nuevosPuntos = int(input("Ingrese los nuevos puntos:"))
+
+            nuevosPuntos = verificarNumero("Ingrese los nuevos puntos:")
             lst_puntos[posicion] = nuevosPuntos
 
             print("Puntos modificados correctamente")
         elif opcionModificacion == 2:
 
-            nuevoTiempo = float(input("Ingrese el nuevo tiempo promedio:"))
+            nuevoTiempo = verificarFlotante("Ingrese el nuevo tiempo promedio:")
             lst_vueltaProm[posicion] = nuevoTiempo
 
             print("Tiempo promedio modificado")
         elif opcionModificacion == 3:
 
-            nuevosPuntos = int(input("Ingrese los nuevos puntos: "))
-            nuevoTiempo = float(input("Ingrese el nuevo tiempo promedio: "))
+            nuevosPuntos = verificarNumero("Ingrese los nuevos puntos: ")
+            nuevoTiempo = verificarFlotante("Ingrese el nuevo tiempo promedio: ")
 
             lst_puntos[posicion] = nuevosPuntos
             lst_vueltaProm[posicion] = nuevoTiempo
@@ -194,8 +284,10 @@ def modificarPiloto(lst_nombres, lst_numero, lst_puntos, lst_vueltaProm):
 
 
 def generarInforme(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vueltaProm ,lst_presupuesto, lst_dnf):
-    """Genera e imprime un informe tabular con los datos de los pilotos.
-    Realizado por: Juan Manuel"""
+    """
+    Genera e imprime un informe tabular con los datos de los pilotos.
+    Realizado por: Silva
+    """
 
     #Para poder listarlas correctamente tengo que ordenarlas
     for i in range(len(lst_nombres)-1):
@@ -270,6 +362,7 @@ def generarInforme(lst_nombres ,lst_numero, lst_escuderia, lst_puntos ,lst_vuelt
     for i in range(len(lst_nombres)):
         fila = f"{lst_nombres[i]:<25} {lst_numero[i]:<10} {lst_escuderia[i]:<12} {lst_puntos[i]:<8} {lst_vueltaProm[i]:<10.2f} {lst_presupuesto[i]:<14.2f} {lst_dnf[i]:<4}"
         print(fila)
+    print("-----------------------------------")
     print("-----------------------------------")
 
     
